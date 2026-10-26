@@ -1,0 +1,21 @@
+{
+  "name": "not-shit-video-toolkit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "test": "node --test --test-concurrency=2 tests/*.test.mjs",
+    "demo": "node tools/render.mjs Film out/demo.mp4",
+    "still": "node tools/render.mjs Film out/poster.png --frame=780",
+    "smoke": "node tests/smoke.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.538",
+    "remotion": "4.0.538",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "playwright": "1.64.1"
+  },
+  "devDependencies": {"@types/react": "19.0.0", "typescript": "5.5.4"}
+}

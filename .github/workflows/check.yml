@@ -1,0 +1,40 @@
+name: Checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Installer regression tests
+        run: python3 -m unittest discover -s tests -v
+      - name: Locked renderer dependencies
+        working-directory: skills/not-shit-video
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Check template and timing
+        working-directory: skills/not-shit-video
+        run: npm run check && npm test
+      - name: Headless browser and FFmpeg
+        working-directory: skills/not-shit-video
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          npx playwright install --with-deps chromium
+      - name: Python audio and storyboard tests
+        working-directory: skills/not-shit-video
+        run: |
+          python3 -m venv .venv
+          .venv/bin/python -m pip install -r requirements.txt
+          .venv/bin/python tests/tools_test.py -v
+      - name: Real deterministic capture and H264 render
+        working-directory: skills/not-shit-video
+        run: npm run smoke

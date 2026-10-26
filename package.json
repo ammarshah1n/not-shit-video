@@ -1,0 +1,9 @@
+{
+  "name": "not-shit-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "An installable agent skill for carefully made product films, deterministic capture and 3D motion.",
+  "keywords": ["pi-package", "agent-skills", "video", "remotion", "threejs"],
+  "pi": {"skills": ["./skills/not-shit-video"]},
+  "scripts": {"test": "python3 -m unittest discover -s tests -v"}
+}

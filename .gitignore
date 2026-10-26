@@ -1,0 +1,16 @@
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*
+!.env.example
+out/
+frames/
+*.mp4
+*.mov
+*.wav
+*.mp3
+!.github/
+.paseo/
